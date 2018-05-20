@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <style>
+      body {
+        transition: background-color 0.1s ease-out;
+      }
+      h1, h2 {
+        text-align: center;
+      }
+      h1 {
+        font-size: 10em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="keyContainer"></h1>
+    <h2><span id="streakNum">0</span>x Streak</h2>
+    <script>
+      var alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+      function getRandomFrom(arr){
+        return arr[Math.floor(arr.length * Math.random())];
+      }
+
+      var cur = getRandomFrom(alphabet);
+      document.querySelector('#keyContainer').innerHTML = cur;
+
+      var streak = 0;
+
+      function noice(){
+        cur = getRandomFrom(alphabet);
+        streak++;
+        document.querySelector('#keyContainer').innerHTML = cur;
+        document.querySelector('#streakNum').innerHTML = streak;
+        flash('green');
+      }
+
+      function notNoice(){
+        streak = 0;
+        document.querySelector('#streakNum').innerHTML = streak;
+        flash('red');
+      }
+
+      document.body.addEventListener('keypress', function(e){
+        if(cur === e.key) {
+          noice();
+        } else {
+          notNoice();
+        }
+      });
+
+      function flash(color){
+        document.body.style.backgroundColor = color;
+        setTimeout(function(){
+          document.body.style.backgroundColor = 'white';
+        }, 50);
+      }
+    </script>
+  </body>
+</html>
